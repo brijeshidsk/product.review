@@ -24,12 +24,14 @@ namespace RestFullWebAPI.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<User> Get()
+        public List<User> Get()
         {
+
             _logger.LogInformation("User's are listed");
             var users = _service.Get();
 
-            return users.ToArray();
+            return users;
+
         }
 
         // GET api/<UsersController>/5
@@ -49,6 +51,7 @@ namespace RestFullWebAPI.Controllers
             var id = _service.create(user);
 
             return CreatedAtRoute("GetById", new {id = user.Id}, user);
+
 
         }
 
