@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestFullWebAPI.Models;
 
@@ -13,7 +14,7 @@ namespace RestFullWebAPI.Repositories
             _db = dBContext;
         }
 
-        public int create(Category entity)
+        public Category create(Category entity)
         {
             throw new NotImplementedException();
         }
@@ -36,12 +37,12 @@ namespace RestFullWebAPI.Repositories
             return category;
         }
 
-        public void Update(int id, Category entity)
+        public int Update(int id, Category entity)
         {
             throw new NotImplementedException();
         }
 
-        public void delete(int id)
+        public int delete(int id)
         {
             throw new NotImplementedException();
         }

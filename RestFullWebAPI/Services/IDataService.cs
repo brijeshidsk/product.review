@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RestFullWebAPI.Repositories
 {
@@ -10,9 +11,9 @@ namespace RestFullWebAPI.Repositories
     {
         List<T> Get();
         T Get(int id);
-        int create (T entity);
-        void Update (int id , T entity);
-        void delete (int id);
+        T create (T entity);
+        int Update (int id , T entity);
+        int delete (int id);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using RestFullWebAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestFullWebAPI.Models;
 using RestFullWebAPI.Repositories;
 
 namespace RestFullWebAPI.Services
@@ -11,7 +12,7 @@ namespace RestFullWebAPI.Services
             _repo = repo;
         }
 
-        public int create(Category entity)
+        public Category create(Category entity)
         {
             throw new NotImplementedException();
         }
@@ -30,12 +31,12 @@ namespace RestFullWebAPI.Services
             return category;
         }
 
-        public void Update(int id, Category entity)
+        public int Update(int id, Category entity)
         {
             throw new NotImplementedException();
         }
 
-        public void delete(int id)
+        public int delete(int id)
         {
             throw new NotImplementedException();
         }

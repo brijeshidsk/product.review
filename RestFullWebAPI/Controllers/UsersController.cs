@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RestFullWebAPI.Models;
 using RestFullWebAPI.Models.DTO;
 using RestFullWebAPI.Repositories;
@@ -45,13 +46,13 @@ namespace RestFullWebAPI.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public IActionResult Post([FromBody] User  user)
+        public User Post([FromBody] User  user)
         {
 
             var id = _service.create(user);
 
-            return CreatedAtRoute("GetById", new {id = user.Id}, user);
-
+          
+            return user;
 
         }
 
@@ -63,7 +64,7 @@ namespace RestFullWebAPI.Controllers
             {
                 var user = _service.login(loginparam);
 
-                return CreatedAtRoute("GetById", new { id = user.Id }, user);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -81,7 +82,7 @@ namespace RestFullWebAPI.Controllers
             {
                 _service.Update(id, user);
                 //return HttpStatusCode.NoContent;
-                return CreatedAtRoute("GetById", new { id = user.Id }, user);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -98,7 +99,7 @@ namespace RestFullWebAPI.Controllers
             {
                 _service.delete(id);
 
-                return NoContent();
+                return Ok();
             }catch(Exception ex)
             {
                 return StatusCode(500, "Internal server error!");

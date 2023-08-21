@@ -29,21 +29,24 @@ namespace RestFullWebAPI.Services
             return user;
         }
 
-        public void Update(int id , User user)
+        public int Update(int id , User user)
         {
             _repo.Update(id ,user);
+
+            return id;
         }
 
-        public void delete(int id)
+        public int delete(int id)
         {
             _repo.delete(id);
+            return id;
         }
 
-        public int create(User entity)
+        public User create(User entity)
         {
             _repo.create(entity);
 
-            return entity.Id;
+            return entity;
         }
 
         public User login(LoginParam entity)

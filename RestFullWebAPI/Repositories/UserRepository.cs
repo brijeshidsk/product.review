@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestFullWebAPI.Models;
 using RestFullWebAPI.Models.DTO;
@@ -35,7 +36,7 @@ namespace RestFullWebAPI.Repositories
         }
 
 
-        public void Update(int id, User entity)
+        public int Update(int id, User entity)
         {
             var user = _db.Users.Find(id);
             if(user == null)
@@ -48,11 +49,11 @@ namespace RestFullWebAPI.Repositories
 
             _db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _db.SaveChanges();
-
+            return id;
 
         }
 
-        public void delete(int id)
+        public int delete(int id)
         {
 
             var user = _db.Users.Find(id);
@@ -63,14 +64,15 @@ namespace RestFullWebAPI.Repositories
             
             _db.Remove(user);
             _db.SaveChanges();
-
+            return id;
         }
 
-        public int create(User entity)
+        public User create(User entity)
         {
             _db.Users.Add(entity);
             _db.SaveChanges();
-            return entity.Id;
+
+            return entity;
         }
 
 

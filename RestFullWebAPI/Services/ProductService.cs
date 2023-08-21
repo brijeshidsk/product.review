@@ -1,4 +1,5 @@
-﻿using RestFullWebAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestFullWebAPI.Models;
 using RestFullWebAPI.Models.DTO;
 using RestFullWebAPI.Repositories;
 using static Unity.Storage.RegistrationSet;
@@ -13,10 +14,10 @@ namespace RestFullWebAPI.Services
             _repo = repo;
         }
 
-        public int create(Product entity)
+        public Product create(Product entity)
         {
             _repo.create(entity);
-            return entity.Id;
+            return entity;
         }
 
         public List<Product> Get()
@@ -38,13 +39,15 @@ namespace RestFullWebAPI.Services
         //    return products;
         //}
 
-        public void Update(int id, Product entity)
+        public int Update(int id, Product entity)
         {
             _repo.Update(id, entity);
+            return id;
         }
-        public void delete(int id)
+        public int delete(int id)
         {
             _repo.delete(id);
+            return id;
         }
 
         public Product reviews(Review review)

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestFullWebAPI.Models;
 using RestFullWebAPI.Models.DTO;
@@ -6,7 +7,7 @@ using static Unity.Storage.RegistrationSet;
 
 namespace RestFullWebAPI.Repositories
 {
-    public class ProductRepository:IProductDataRepository<Product>
+    public class ProductRepository : IProductDataRepository<Product>
     {
         private EComDBContext _db;
 
@@ -15,15 +16,16 @@ namespace RestFullWebAPI.Repositories
             _db = dBContext;
         }
 
-        public int create(Product entity)
+        public Product create(Product entity)
         {
-            _db.Add(entity);
+            var id = _db.Add(entity);
             _db.SaveChanges();
+            var product = _db.Products.Find(entity.Id);
 
-            return entity.Id;
+            return product;
         }
 
-        public void delete(int id)
+        public int delete(int id)
         {
             var product = _db.Products.Find(id);
             if (product == null)
@@ -33,6 +35,7 @@ namespace RestFullWebAPI.Repositories
 
             _db.Remove(product);
             _db.SaveChanges();
+            return id;
         }
 
         public List<Product> Get()
@@ -83,7 +86,7 @@ namespace RestFullWebAPI.Repositories
 
         }
 
-        public void Update(int id, Product entity)
+        public int Update(int id, Product entity)
         {
             var product = _db.Products.Find(id);
             if (product == null)
@@ -105,6 +108,7 @@ namespace RestFullWebAPI.Repositories
 
             _db.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _db.SaveChanges();
+            return id;
         }
     }
 }
