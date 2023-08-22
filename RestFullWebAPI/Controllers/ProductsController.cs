@@ -33,13 +33,12 @@ namespace RestFullWebAPI.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public IActionResult Post([FromBody] Product product)
+        public Product Post([FromBody] Product product)
         {
 
             var id = _service.create(product);
 
-            return CreatedAtRoute("GetById", new { id = product.Id }, product);
-
+            return product;
         }
 
         //GET: api/<ProductsController>
@@ -60,7 +59,7 @@ namespace RestFullWebAPI.Controllers
             {
                 _service.Update(id, product);
                 //return HttpStatusCode.NoContent;
-                return NoContent();
+                return Ok(product);
             }
             catch (Exception ex)
             {
@@ -76,7 +75,7 @@ namespace RestFullWebAPI.Controllers
             {
                 _service.delete(id);
 
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -87,15 +86,32 @@ namespace RestFullWebAPI.Controllers
         }
 
 
-        [HttpPost("reviews")]
-        public IActionResult Reviews([FromBody] Review review)
+            [HttpPost("reviews")]
+            public IActionResult Reviews([FromBody] Review review)
+            {
+
+                try
+                {
+                    var product = _service.reviews(review);
+
+                    return Ok(product);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Internal server error!");
+                }
+
+            }
+
+        [HttpDelete("reviews/delete/{id}")]
+        public IActionResult DeleteReview(int id)
         {
 
             try
             {
-                var product = _service.reviews(review);
+                var product = _service.deleteReview(id);
 
-                return CreatedAtRoute("GetById", new { id = product.Id }, product);
+                return Ok();
             }
             catch (Exception ex)
             {

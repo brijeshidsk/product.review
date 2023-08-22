@@ -35,6 +35,31 @@ namespace RestFullWebAPI.Repositories
 
             _db.Remove(product);
             _db.SaveChanges();
+
+            _db.Reviews.Where(review => review.ProductId == id).ExecuteDelete();
+
+            return id;
+        }
+
+        public int deleteReview(int id)
+        {
+            var review = _db.Reviews.Find(id);
+            var product = _db.Products.Find(review.ProductId);
+
+            if (review == null)
+            {
+                throw new Exception($"Review with Id {id} not found");
+            }
+
+            _db.Remove(review);
+            _db.SaveChanges();
+
+            product.Rating = product.Rating - review.Rating;
+            product.NumReviews = product.NumReviews - 1;
+
+            _db.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.SaveChanges();
+
             return id;
         }
 
@@ -66,6 +91,13 @@ namespace RestFullWebAPI.Repositories
 
         public Product reviews(Review review)
         {
+            var reviewFind = _db.Reviews.Where(r => r.ProductId == review.ProductId && r.UserId == review.UserId).SingleOrDefault();
+
+            if (reviewFind != null)
+            {
+                throw new Exception($"User already given his/her review on productId {review.ProductId} not found");
+            }
+
             var product = _db.Products.Find(review.ProductId);
             if (product == null)
             {
@@ -80,7 +112,6 @@ namespace RestFullWebAPI.Repositories
 
             _db.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _db.SaveChanges();
-
 
             return product;
 

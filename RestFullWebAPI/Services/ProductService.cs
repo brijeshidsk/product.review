@@ -50,6 +50,12 @@ namespace RestFullWebAPI.Services
             return id;
         }
 
+        public int deleteReview(int id)
+        {
+            _repo.deleteReview(id);
+            return id;
+        }
+
         public Product reviews(Review review)
         {
             var product = _repo.reviews(review);

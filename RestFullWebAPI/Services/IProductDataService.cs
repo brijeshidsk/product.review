@@ -11,6 +11,8 @@ namespace RestFullWebAPI.Repositories
     public interface IProductDataService<T> : IDataRepository<T>
     {
         T reviews(Review review);
+        int deleteReview(int id);
+
 
     }
 }
