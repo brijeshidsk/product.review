@@ -23,23 +23,37 @@ namespace RestFullWebAPI.Controllers
 
         // GET: api/<CategoriesController>
         [HttpGet]
-        public List<Category> Get()
+        public IActionResult Get()
         {
-            _logger.LogInformation("Categories's are listed");
-            var categories = _service.Get();
+            try
+            {
+                _logger.LogInformation("Categories's are listed");
+                var categories = _service.Get();
 
-            return categories;
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
 
         }
 
         // GET: api/<CategoriesController>/1
         [HttpGet("{id}")]
-        public Category Get(int id)
+        public IActionResult Get(int id)
         {
-            _logger.LogInformation("Category");
-            var category = _service.Get(id);
+            try
+            {
+                _logger.LogInformation("Category");
+                var category = _service.Get(id);
 
-            return category;
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
 
         }
 

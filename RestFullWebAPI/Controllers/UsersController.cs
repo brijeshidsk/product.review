@@ -25,34 +25,55 @@ namespace RestFullWebAPI.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
-        public List<User> Get()
+        public IActionResult Get()
         {
+            try
+            {
 
-            _logger.LogInformation("User's are listed");
-            var users = _service.Get();
+                _logger.LogInformation("User's are listed");
+                var users = _service.Get();
 
-            return users;
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
 
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}" , Name = "GetById")]
-        public User Get(int id)
+        public IActionResult Get(int id)
         {
-            var user = _service.Get(id);
+            try
+            {
+                var user = _service.Get(id);
 
-            return user;
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public User Post([FromBody] User  user)
+        public IActionResult Post([FromBody] User  user)
         {
 
-            var id = _service.create(user);
+            try
+            {
+                var id = _service.create(user);
 
-          
-            return user;
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
 
         }
 

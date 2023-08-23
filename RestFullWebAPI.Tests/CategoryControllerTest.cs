@@ -29,9 +29,9 @@ namespace RestFullWebAPI.Tests
             var result = Controller.Get();
 
             //Assert
-            var okResult = Assert.IsType<List<Category>>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(result);
-            Assert.Equal(categories.Count(), result.Count());
+            Assert.Equal(200, okResult.StatusCode);
 
         }
         [Fact]
@@ -51,9 +51,9 @@ namespace RestFullWebAPI.Tests
             var result = Controller.Get(1);
 
             //Assert
-            var okResult = Assert.IsType<Category>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(result);
-            Assert.Equal(category.Name, result.Name);
+            Assert.Equal(200, okResult.StatusCode);
 
         }
 

@@ -24,30 +24,52 @@ namespace RestFullWebAPI.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public Product Get(int id)
+        public IActionResult Get(int id)
         {
-            var product = _service.Get(id);
+            try
+            {
+                var product = _service.Get(id);
 
-            return product;
+                return Ok(product);
+
+            }catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+
+            }
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public Product Post([FromBody] Product product)
+        public IActionResult Post([FromBody] Product product)
         {
+            try {
 
-            var id = _service.create(product);
+               var id = _service.create(product);
 
-            return product;
+               return Ok(product);
+
+             }catch (Exception ex)
+             {
+                return StatusCode(500, "Internal server error!");
+
+             }
         }
 
         //GET: api/<ProductsController>
         [HttpGet]
-        public List<Product> Get()
+        public IActionResult Get()
         {
-            var products = _service.Get();
+            try
+            {
+                var products = _service.Get();
 
-            return products;
+                return Ok(products);
+
+            }catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error!");
+            }
         }
 
         // PUT api/<ProductsController>/5

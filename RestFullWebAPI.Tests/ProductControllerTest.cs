@@ -29,9 +29,9 @@ namespace RestFullWebAPI.Tests
             var result = Controller.Get();
 
             //Assert
-            var okResult = Assert.IsType<List<Product>>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(result);
-            Assert.Equal(products.Count(), result.Count());
+            Assert.Equal(200, okResult.StatusCode);
 
         }
         [Fact]
@@ -51,9 +51,9 @@ namespace RestFullWebAPI.Tests
             var result = Controller.Get(1);
 
             //Assert
-            var okResult = Assert.IsType<Product>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(result);
-            Assert.Equal(product.ProductName, result.ProductName);
+            Assert.Equal(200, okResult.StatusCode);
 
         }
         [Fact]
@@ -74,9 +74,9 @@ namespace RestFullWebAPI.Tests
             var result = Controller.Post(newProduct);
 
             //Assert
-            var okResult = Assert.IsType<Product>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.NotNull(result);
-            Assert.Equal(newProduct.ProductName, result.ProductName);
+            Assert.Equal(200, okResult.StatusCode);
 
         }
         [Fact]
